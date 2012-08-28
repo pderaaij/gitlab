@@ -16,3 +16,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+group node[:gitlab][:group] do
+    action :create
+end
+
+user node[:gitlab][:user] do
+    group node[:gitlab][:group]
+    home node[:gitlab][:home_dir]
+    shell node[:gitlab][:shell]
+    action :create
+end
+
+
+
+
+
+
