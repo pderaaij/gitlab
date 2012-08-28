@@ -17,9 +17,11 @@
 # limitations under the License.
 #
 
+
 group node[:gitlab][:group] do
     action :create
 end
+
 
 user node[:gitlab][:user] do
     group node[:gitlab][:group]
@@ -28,17 +30,20 @@ user node[:gitlab][:user] do
     action :create
 end
 
+
 directory node[:gitlab][:home] do
     owner node[:gitlab][:user]
     group node[:gitlab][:group]
     mode 0755
 end
 
+
 template "#{node[:gitlab][:home]}/.bashrc" do
     owner node[:gitlab][:user]
     group node[:gitlab][:group]
     mode 0644
 end
+
 
 git node[:rbenv][:home] do
     repository node[:rbenv][:repo]
@@ -48,25 +53,59 @@ git node[:rbenv][:home] do
     group node[:gitlab][:group]
 end
 
+
 directory node[:rbenv][:plugin] do
     owner node[:gitlab][:user]
     group node[:gitlab][:group]
 end
 
-git node[:rubybuild][:home] do
-    repository node[:rubybuild][:repo]
-    reference node[:rubybuild][:branch]
+
+git node[:rbenv][:rubybuild][:home] do
+    repository node[:rbenv][:rubybuild][:repo]
+    reference node[:rbenv][:rubybuild][:branch]
     action :checkout
     user node[:gitlab][:user]
     group node[:gitlab][:group]
 end
 
-git node[:rbenvgemset][:home] do
-    repository node[:rbenvgemset][:repo]
-    reference node[:rbenvgemset][:branch]
+
+git node[:rbenv][:rbenvgemset][:home] do
+    repository node[:rbenv][:rbenvgemset][:repo]
+    reference node[:rbenv][:rbenvgemset][:branch]
     action :checkout
     user node[:gitlab][:user]
     group node[:gitlab][:group]
 end
+
+
+execute node[:rbenv][:install] do
+    action :run
+end
+
+
+execute node[:rbenv][:global] do
+    action :run
+end
+
+
+execute node[:rbenv][:rubygemsupdate][:install] do
+    action :run
+end
+
+
+execute node[:rbenv][:rubygemsupdate][:update] do
+    action :run
+end
+
+
+execute node[:rbenv][:rbenvrehash][:install] do
+    action :run
+end
+
+
+execute node[:rbenv][:bundler][:install] do
+    action :run
+end
+
 
 
