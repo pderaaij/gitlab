@@ -23,17 +23,50 @@ end
 
 user node[:gitlab][:user] do
     group node[:gitlab][:group]
-    home node[:gitlab][:home_dir]
+    home node[:gitlab][:home]
     shell node[:gitlab][:shell]
     action :create
 end
 
-template "#{node[:gitlab][:home_dir]}/.bashrc" do
+directory node[:gitlab][:home] do
+    owner node[:gitlab][:user]
+    group node[:gitlab][:group]
+    mode 0755
+end
+
+template "#{node[:gitlab][:home]}/.bashrc" do
     owner node[:gitlab][:user]
     group node[:gitlab][:group]
     mode 0644
 end
 
+git node[:rbenv][:home] do
+    repository node[:rbenv][:repo]
+    reference node[:rbenv][:branch]
+    action :checkout
+    user node[:gitlab][:user]
+    group node[:gitlab][:group]
+end
 
+directory node[:rbenv][:plugin] do
+    owner node[:gitlab][:user]
+    group node[:gitlab][:group]
+end
+
+git node[:rubybuild][:home] do
+    repository node[:rubybuild][:repo]
+    reference node[:rubybuild][:branch]
+    action :checkout
+    user node[:gitlab][:user]
+    group node[:gitlab][:group]
+end
+
+git node[:rbenvgemset][:home] do
+    repository node[:rbenvgemset][:repo]
+    reference node[:rbenvgemset][:branch]
+    action :checkout
+    user node[:gitlab][:user]
+    group node[:gitlab][:group]
+end
 
 
