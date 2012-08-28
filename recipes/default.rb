@@ -28,7 +28,11 @@ user node[:gitlab][:user] do
     action :create
 end
 
-
+template "#{node[:gitlab][:home_dir]}/.bashrc" do
+    owner node[:gitlab][:user]
+    group node[:gitlab][:group]
+    mode 0644
+end
 
 
 
