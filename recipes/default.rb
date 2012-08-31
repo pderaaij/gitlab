@@ -18,94 +18,16 @@
 #
 
 
-group node[:gitlab][:group] do
-    action :create
+# include recipe https://github.com/libero18/user
+# include recipe https://github.com/libero18/zsh
+# include recipe https://github.com/libero18/rbenv
+# create user & install rbenv & ['shell'] = "/bin/zsh" >> install zsh
+include_recipe "rbenv::default"
+
+
+# create gitlab install dir
+directory node['app'] do
+    owner node['user']
+    group node['group']
 end
-
-
-user node[:gitlab][:user] do
-    group node[:gitlab][:group]
-    home node[:gitlab][:home]
-    shell node[:gitlab][:shell]
-    action :create
-end
-
-
-directory node[:gitlab][:home] do
-    owner node[:gitlab][:user]
-    group node[:gitlab][:group]
-    mode 0755
-end
-
-
-template "#{node[:gitlab][:home]}/.bashrc" do
-    owner node[:gitlab][:user]
-    group node[:gitlab][:group]
-    mode 0644
-end
-
-
-git node[:rbenv][:home] do
-    repository node[:rbenv][:repo]
-    reference node[:rbenv][:branch]
-    action :checkout
-    user node[:gitlab][:user]
-    group node[:gitlab][:group]
-end
-
-
-directory node[:rbenv][:plugin] do
-    owner node[:gitlab][:user]
-    group node[:gitlab][:group]
-end
-
-
-git node[:rbenv][:rubybuild][:home] do
-    repository node[:rbenv][:rubybuild][:repo]
-    reference node[:rbenv][:rubybuild][:branch]
-    action :checkout
-    user node[:gitlab][:user]
-    group node[:gitlab][:group]
-end
-
-
-git node[:rbenv][:rbenvgemset][:home] do
-    repository node[:rbenv][:rbenvgemset][:repo]
-    reference node[:rbenv][:rbenvgemset][:branch]
-    action :checkout
-    user node[:gitlab][:user]
-    group node[:gitlab][:group]
-end
-
-
-execute node[:rbenv][:install] do
-    action :run
-end
-
-
-execute node[:rbenv][:global] do
-    action :run
-end
-
-
-execute node[:rbenv][:rubygemsupdate][:install] do
-    action :run
-end
-
-
-execute node[:rbenv][:rubygemsupdate][:update] do
-    action :run
-end
-
-
-execute node[:rbenv][:rbenvrehash][:install] do
-    action :run
-end
-
-
-execute node[:rbenv][:bundler][:install] do
-    action :run
-end
-
-
 

@@ -1,0 +1,6 @@
+!Gemfile
+!Gemfile.lock
+!/test
+!/test/*
+!/tmp
+!/tmp/*
