@@ -36,7 +36,7 @@ Attributes
 
     ['zsh']['packages']                    = %w{
                                                  zsh
-                                             }
+                                           }
 
     ['zsh']['chsh']                        = "chsh -s /bin/zsh"
 
