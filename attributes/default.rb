@@ -18,7 +18,7 @@ override['group']                            = "gitlab"
 override['home']                             = "/var/gitlab"
 override['mode']                             = "0755"
 override['shell']                            = "/bin/zsh"
-default[:app]                                = "#{node[:home]}/app"
+default['app']                                = "#{node['home']}/app"
 
 
 # Set github repository for gitlab
