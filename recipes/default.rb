@@ -24,7 +24,7 @@ include_recipe "rbenv::default"
 
 
 # create gitlab install dir
-directory node['app'] do
+directory node['gitlab']['app'] do
     owner node['user']
     group node['group']
 end

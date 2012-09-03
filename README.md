@@ -26,7 +26,7 @@ Attributes
 
 ### libero18/gitlab default
 
-    ['app']                                = "#{node['home']}/app"
+    ['gitlab']['app']                      = "#{node['home']}/app"
 
     ['gitlab']['repo']                     = "git://github.com/gitlabhq/gitlabhq.git"
     ['gitlab']['branch']                   = "master"
