@@ -18,13 +18,8 @@
 #
 
 
-# include recipe https://github.com/libero18/rbenv
-# create user & install rbenv & node['shell'] = "/bin/zsh" >> install zsh
-include_recipe "rbenv::default"
-
-
 # create gitlab install dir
-directory node['gitlab']['app'] do
+directory "#{node['home']}/.app" do
     owner node['user']
     group node['group']
 end

@@ -7,7 +7,10 @@ install gitlab for CentOS
 
 Requirements
 ============
-CentOS
+CentOS , 
+[libero18/user cookbook](https://github.com/libero18/user) , 
+[libero18/rbenv cookbook](https://github.com/libero18/rbenv) , 
+[libero18/gitlab.json chef roles](https://github.com/libero18/.chef/blob/master/roles/gitlab.json)
 
 
 Attributes
@@ -26,7 +29,11 @@ Attributes
 
 ### libero18/gitlab default
 
-    ['gitlab']['app']                      = "#{node['home']}/app"
+    ['user']                               = "gitlab"
+    ['group']                              = "gitlab"
+    ['home']                               = "/var/gitlab"
+    ['mode']                               = "0755"
+
 
     ['gitlab']['repo']                     = "git://github.com/gitlabhq/gitlabhq.git"
     ['gitlab']['branch']                   = "master"
