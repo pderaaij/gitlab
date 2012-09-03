@@ -18,10 +18,8 @@
 #
 
 
-# include recipe https://github.com/libero18/user
-# include recipe https://github.com/libero18/zsh
 # include recipe https://github.com/libero18/rbenv
-# create user & install rbenv & ['shell'] = "/bin/zsh" >> install zsh
+# create user & install rbenv & node['shell'] = "/bin/zsh" >> install zsh
 include_recipe "rbenv::default"
 
 
@@ -30,4 +28,5 @@ directory node['app'] do
     owner node['user']
     group node['group']
 end
+
 
